@@ -1,3 +1,5 @@
 *.rda
 .DS_Store
 .Rhistory
+.Rbuildignore
+.Rproj.user/

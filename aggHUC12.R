@@ -11,7 +11,7 @@ setwd(workingPath)
 load('hucPoly.rda')
 
 # fromHUC<-list()
-# fromHUC<-sapply(at$HUC,fromHUC_finder,hucs=at$HUC,tohucs=at$TOHUC,fromHUC=fromHUC)
+# fromHUC<-sapply(hucPoly@data$HUC,fromHUC_finder,hucs=hucPoly@data$HUC,tohucs=hucPoly@data$TOHUC)
 
 load('fromHUC.rda')
 

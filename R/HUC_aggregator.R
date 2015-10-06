@@ -1,3 +1,15 @@
+#' HUC Aggregator
+#' 
+#' Aggregates fromHUCs recursively.
+#' 
+#' @param huc The huc in question
+#' @param fromHUC The list of fromHUCs for all the hucs
+#' @return The list of all fromHUCs upstream of given huc
+#' @author David Blodgett \email{dblodgett@@usgs.gov}
+#' @export
+#' @examples
+#' TBD
+#' 
 HUC_aggregator<-function(huc,fromHUC){
   fromHUCs<-fromHUC[[huc]] # Get fromHUCs list for given huc
   if(any(huc %in% fromHUCs)) { # found some HUCs that have themselves as a toHUC
