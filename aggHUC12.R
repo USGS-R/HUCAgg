@@ -1,63 +1,6 @@
 library(maptools)
 library(snow)
 
-fromHUC_finder<-function(huc,hucs,tohucs,fromHUC){
-  fromHUC<-as.list(hucs[tohucs %in% huc])
-  return(fromHUC)
-}
-
-HUC_aggregator<-function(huc,fromHUC){
-  fromHUCs<-fromHUC[[huc]] # Get fromHUCs list for given huc
-  if(any(huc %in% fromHUCs)) { # found some HUCs that have themselves as a toHUC
-    print(paste('found circular reference in',huc))
-    return(huc)
-  }
-  if(length(fromHUCs)==0) { # If no fromHUCs for given HUC, return aggHUCs.
-    return(fromHUCs)
-  }
-  else { # Otherwise, add current list to aggHUCs and call HUC_aggregator for list of upstream HUCs.
-    aggHUCs<-c(fromHUCs,(unlist(lapply(fromHUCs,HUC_aggregator,fromHUC=fromHUC))))
-  }
-}
-
-unionHUC<-function(huc,upstreamHUCs,hucPoly) {
-  library(maptools)
-  print(huc)
-  # takes a huc as a string, the lookup table for upstream HUCs, and the upstream polygons.
-  hucListSub<-unlist(upstreamHUCs[huc])
-  if(is.null(hucListSub)) {
-    print(paste('top',huc))
-    return(NULL)
-  }
-  hucListSub<-c(hucListSub,huc)
-  hucPolySub<-subset(hucPoly,hucPoly@data$HUC %in% hucListSub)
-  hucPolySub@data$group<-1
-  aggPoly<-unionSpatialPolygons(hucPolySub,hucPolySub@data$group)
-  return(aggPoly)
-}
-
-# Used for running unionHUC in parallel
-natRunner<-function(range, aggrHUCs, hucPoly, unionHUC, outPath) {
-  library(maptools)
-  tryCatch ({
-    hucList<-as.character(hucPoly@data$HUC[range[1]:range[2]])
-    outHucList<-sapply(unlist(hucList), unionHUC, upstreamHUCs=aggrHUCs, hucPoly=hucPoly)
-    outShp<-subset(hucPoly,hucPoly@data$HUC %in% hucList)
-    for(huc in outShp@data$HUC){
-      if(!is.null(outHucList[[huc]])){
-        outShp@polygons[which(outShp@data$HUC %in% huc)][[1]]<-outHucList[[huc]]@polygons[[1]]
-      }
-    }
-    writePolyShape(outShp,file.path(outPath,toString(range[1])))
-    rm(outHucList)
-    rm(outShp)
-    return(1)
-  },
-  error = function(cond) {
-    return(paste(range[1], cond))
-  })
-}
-
 workingPath<-'~/Desktop/'
 
 setwd(workingPath)
