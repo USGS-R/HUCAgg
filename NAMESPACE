@@ -2,6 +2,7 @@
 
 export(HUC_aggregator)
 export(fromHUC_finder)
+export(parHUC_aggTime)
 export(parUnionHUCRunner)
 export(unionHUC)
 importFrom(maptools,unionSpatialPolygons)
