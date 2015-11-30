@@ -3,3 +3,5 @@
 .Rhistory
 .Rbuildignore
 .Rproj.user/
+*.RData
+*.json
