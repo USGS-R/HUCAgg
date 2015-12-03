@@ -4,18 +4,18 @@
 \alias{HUCTS_aggregator}
 \title{Aggregate HUC time series data}
 \usage{
-HUCTS_aggregator(upstream_size, fromHUCs, huc12_areaDF, huc12agg_areaDF, dataF)
+HUCTS_aggregator(upstream_size, fromHUC, huc12_areaDF, huc12agg_areaDF, dataF)
 }
 \arguments{
 \item{upstream_size}{Named integer list of the number of upstream HUCs for each huc.}
+
+\item{fromHUC}{Named list of lists containing the HUCs that flow into each HUC.}
 
 \item{huc12_areaDF}{Data frame with a single observation of area for each local HUC.}
 
 \item{huc12agg_areaDF}{Data fame with a single observation of area for each aggregated HUC.}
 
 \item{dataF}{Data Frame with a set of observations for each local HUC.}
-
-\item{fromHUC}{Named list of lists containing the HUCs that flow into each HUC.}
 }
 \value{
 dataF Data Frame with the set of observations aggregated upstream using a weighted average.

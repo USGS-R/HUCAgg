@@ -14,11 +14,13 @@
 #' load('tests/testthat/data/HUCTS_aggregator_test.rda')
 #' outData<-HUCTS_aggregator(upstream_size,fromHUCs,huc12_areaDF,huc12agg_areaDF,dataF)
 #' 
-HUCTS_aggregator<-function(upstream_size,fromHUCs,huc12_areaDF,huc12agg_areaDF,dataF) {
+HUCTS_aggregator<-function(upstream_size,fromHUC,huc12_areaDF,huc12agg_areaDF,dataF) {
     for ( setSize in 1:max(upstream_size) ) {
       hucs<-names(upstream_size[which(upstream_size==setSize)])
-      print(setSize)
-      print(paste('length of set is',length(hucs)))
+      if ( setSize > 100 ) {
+        print(setSize)
+        print(paste('length of set is',length(hucs)))
+      }
       for ( huc in hucs ) {
         if(huc %in% names(dataF)) {
           fromHUCs<-fromHUC[huc]
@@ -38,6 +40,7 @@ HUCTS_aggregator<-function(upstream_size,fromHUCs,huc12_areaDF,huc12agg_areaDF,d
         dataF[huc]<-wa
       }
     }
+    return(dataF)
   }
 
 
