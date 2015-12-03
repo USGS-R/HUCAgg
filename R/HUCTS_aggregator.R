@@ -12,12 +12,12 @@
 #' @export
 #' @examples
 #' load('tests/testthat/data/HUCTS_aggregator_test.rda')
-#' outData<-HUCTS_aggregator(upstream_size,fromHUCs,huc12_areaDF,huc12agg_areaDF,dataF)
+#' outData<-HUCTS_aggregator(upstream_size,fromHUC,huc12_areaDF,huc12agg_areaDF,dataF)
 #' 
 HUCTS_aggregator<-function(upstream_size,fromHUC,huc12_areaDF,huc12agg_areaDF,dataF) {
     for ( setSize in 1:max(upstream_size) ) {
       hucs<-names(upstream_size[which(upstream_size==setSize)])
-      if ( setSize > 100 ) {
+      if ( length(hucs) > 100 ) {
         print(setSize)
         print(paste('length of set is',length(hucs)))
       }

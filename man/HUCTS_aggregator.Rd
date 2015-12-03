@@ -25,7 +25,7 @@ Aggregate time series data for a collection of HUCs
 }
 \examples{
 load('tests/testthat/data/HUCTS_aggregator_test.rda')
-outData<-HUCTS_aggregator(upstream_size,fromHUCs,huc12_areaDF,huc12agg_areaDF,dataF)
+outData<-HUCTS_aggregator(upstream_size,fromHUC,huc12_areaDF,huc12agg_areaDF,dataF)
 }
 \author{
 David Blodgett \email{dblodgett@usgs.gov}
