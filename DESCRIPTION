@@ -1,14 +1,15 @@
-Package: HUCAgg 
+Package: HUCAgg
 Type: Package
 Title: Functions to aggregate WBD HUC12s
 Version: 0.0
 Date: 2015-10-06
 Author: David Blodgett
 Maintainer: David Blodgett <dblodgett@usgs.gov>
-Suggests: snow
-Imports: maptools
+Suggests:
+    snow
+Depends:
+    maptools, rgeos
 Description: TBD
 License: Public Domain
 LazyLoad: yes
-
-
+RoxygenNote: 5.0.1
