@@ -35,10 +35,10 @@ unionHUCSet<-function(aggrHUCs,fromHUCs,subhucPoly) {
           subhucPoly@polygons[ind][[1]]<-unionSpatialPolygons(subhucPolySub,subhucPolySub@data$group)@polygons[[1]],
           warning = function(w) {print(paste("Warning handling", huc, "warning was", w))},
           error = function(e) {print(paste("Error handling", huc, "error was", e))})
+        subhucPoly@data$AREAACRES[ind]<-sum(subhucPolySub@data$AREAACRES)
+        subhucPoly@data$AREASQKM[ind]<-sum(subhucPolySub@data$AREASQKM)
+        subhucPoly@polygons[[ind]]@ID=huc
       }
-      subhucPoly@polygons[[ind]]@ID=huc
-      subhucPoly@data$AREAACRES[ind]<-sum(subhucPolySub@data$AREAACRES)
-      subhucPoly@data$AREASQKM[ind]<-sum(subhucPolySub@data$AREASQKM)
     }
   }
   return(subhucPoly)

@@ -19,11 +19,11 @@ simplifyHucs<-function(subhucPoly,coordThresh=50000,simpTol=0.00005) {
       numCoords<-numCoords+length(subhucPoly@polygons[[p]]@Polygons[[p2]]@coords)
     }
     if (numCoords>coordThresh) {
-      subhucPolySub<-subset(subhucPoly,subhucPoly@data$HUC %in% as.character(subhucPoly@data$HUC[p]))
+      subhucPolySub<-subset(subhucPoly,subhucPoly@data$HUC12 %in% as.character(subhucPoly@data$HUC12[p]))
       tryCatch(
         subhucPoly@polygons[[p]]<-gSimplify(subhucPolySub,simpTol,topologyPreserve=TRUE)@polygons[[1]],
-        warning = function(w) {print(paste("Warning simplifying", huc, "warning was", w))},
-        error = function(e) {print(paste("Error simplifying", huc, "error was", e))})
+        warning = function(w) {print(paste("Warning simplifying", subhucPoly@data$HUC12[p], "warning was", w))},
+        error = function(e) {print(paste("Error simplifying", subhucPoly@data$HUC12[p], "error was", e))})
     }
   }
   return(subhucPoly)
