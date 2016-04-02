@@ -1,4 +1,3 @@
-*.rda
 .DS_Store
 .Rhistory
 .Rbuildignore
