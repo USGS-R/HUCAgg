@@ -17,7 +17,8 @@
 #' fromHUC<-sapply(hucList,fromHUC_finder,hucs=testhucPoly@data$HUC12,tohucs=testhucPoly@data$TOHUC)
 #' aggrHUCs<-sapply(hucList, HUC_aggregator, fromHUC=fromHUC)
 #' testhucPoly<-unionHUCSet(aggrHUCs, fromHUC, testhucPoly)
-#' plot(subset(testhucPoly,testhucPoly@data$HUC12 %in% "070900020904"))
+#' plot(subset(testhucPoly,testhucPoly@data$HUC12 %in% "070900020904"), add=TRUE, col=rgb(1,0,0,.3))
+#' plot(subset(testhucPoly,testhucPoly@data$HUC12 %in% "070900020702"), add=TRUE, col=rgb(1,1,0,.3))
 #' 
 unionHUCSet<-function(aggrHUCs,fromHUCs,subhucPoly) {
   upstream_size<-sapply(aggrHUCs, length)

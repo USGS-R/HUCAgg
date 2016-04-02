@@ -17,10 +17,17 @@ unionHUC(huc, upstreamHUCs, hucPoly)
 An aggregated polygon
 }
 \description{
-Aggregates geometry for a set of HUCs
+Aggregates geometry for a set of HUCs.
 }
 \examples{
-TBD
+load(system.file("extdata","testhucpoly.rda",package="HUCAgg"))
+plot(testhucPoly)
+hucList<-as.character(unlist(getHUCList("07",testhucPoly)))
+fromHUC<-sapply(hucList,fromHUC_finder,hucs=testhucPoly@data$HUC12,tohucs=testhucPoly@data$TOHUC)
+aggrHUCs<-sapply(hucList, HUC_aggregator, fromHUC=fromHUC)
+huc<-"070900020904"
+outhucPoly<-unionHUC(huc, aggrHUCs, testhucPoly)
+plot(outhucPoly, add=TRUE, col=rgb(1,0,0,.3))
 
 }
 \author{
