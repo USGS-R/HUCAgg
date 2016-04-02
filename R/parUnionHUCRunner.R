@@ -9,7 +9,6 @@
 #' @param outPath The path for the newly spawned environment to write to
 #' @return 1 for success the range and error condition for failure.
 #' @author David Blodgett \email{dblodgett@@usgs.gov}
-#' @export
 #' @examples
 #' TBD
 #' 
