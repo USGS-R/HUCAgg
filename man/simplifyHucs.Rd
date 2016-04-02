@@ -21,7 +21,7 @@ A convenience function to help simplify very large aggregate HUCs.
 }
 \examples{
 load(system.file("extdata","testhucpoly.rda",package="HUCAgg"))
-hucList<-as.character(unlist(getHUCList("07",testhucPoly)))
+hucList<-testhucPoly@data$HUC12
 fromHUC<-sapply(hucList,fromHUC_finder,hucs=testhucPoly@data$HUC12,tohucs=testhucPoly@data$TOHUC)
 aggrHUC<-sapply(hucList, HUC_aggregator, fromHUC=fromHUC)
 testhucPoly<-unionHUCSet(aggrHUC, fromHUC, testhucPoly)

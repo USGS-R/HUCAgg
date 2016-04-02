@@ -11,9 +11,10 @@
 #' @author David Blodgett \email{dblodgett@@usgs.gov}
 #' @export
 #' @examples
-#' load('tests/testthat/data/HUCTS_aggregator_test.rda')
+#' \dontrun{
+#' load(system.file("extdata","HUCTS_aggregator_test.rda",package="HUCAgg"))
 #' outData<-HUCTS_aggregator(upstream_size,fromHUC,huc12_areaDF,huc12agg_areaDF,dataF)
-#' 
+#' }
 HUCTS_aggregator<-function(upstream_size,fromHUC,huc12_areaDF,huc12agg_areaDF,dataF) {
     for ( setSize in 1:max(upstream_size) ) {
       hucs<-names(upstream_size[which(upstream_size==setSize)])

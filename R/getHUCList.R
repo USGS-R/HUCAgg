@@ -8,8 +8,10 @@
 #' @author David Blodgett \email{dblodgett@usgs.gov}
 #' @export
 #' @examples
-#' TBD
-#' 
+#' load(system.file("extdata","testhucpoly.rda",package="HUCAgg"))
+#' print(testhucPoly@data$HUC12)
+#' hucList<-as.character(unlist(getHUCList("0709000205",testhucPoly)))
+#' print(hucList)
 getHUCList<-function(subRegion,subhucPoly) {
   hucList<-c()
   for(huc in subhucPoly@data$HUC12) {

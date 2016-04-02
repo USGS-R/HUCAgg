@@ -15,7 +15,8 @@ init_regions(WBDPath, regionsPath)
 A list of regions and sub-processing units.
 }
 \description{
-Builds Regional WBD Files
+Builds regional WBD files from a national shapefile. The shapefile can be found here:
+ftp://rockyftp.cr.usgs.gov/vdelivery/Datasets/Staged/WBD/
 }
 \examples{
 \dontrun{

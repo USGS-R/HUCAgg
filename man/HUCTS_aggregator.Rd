@@ -24,9 +24,10 @@ dataF Data Frame with the set of observations aggregated upstream using a weight
 Aggregate time series data for a collection of HUCs
 }
 \examples{
-load('tests/testthat/data/HUCTS_aggregator_test.rda')
+\dontrun{
+load(system.file("extdata","HUCTS_aggregator_test.rda",package="HUCAgg"))
 outData<-HUCTS_aggregator(upstream_size,fromHUC,huc12_areaDF,huc12agg_areaDF,dataF)
-
+}
 }
 \author{
 David Blodgett \email{dblodgett@usgs.gov}

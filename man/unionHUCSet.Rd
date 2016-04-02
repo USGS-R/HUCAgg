@@ -23,7 +23,7 @@ Aggregates geometry for a large collection of HUCs. Note that subhucPoly must be
 \examples{
 load(system.file("extdata","testhucpoly.rda",package="HUCAgg"))
 plot(testhucPoly)
-hucList<-as.character(unlist(getHUCList("07",testhucPoly)))
+hucList<-testhucPoly@data$HUC12
 fromHUC<-sapply(hucList,fromHUC_finder,hucs=testhucPoly@data$HUC12,tohucs=testhucPoly@data$TOHUC)
 aggrHUCs<-sapply(hucList, HUC_aggregator, fromHUC=fromHUC)
 testhucPoly<-unionHUCSet(aggrHUCs, fromHUC, testhucPoly)

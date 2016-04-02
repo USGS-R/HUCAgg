@@ -8,6 +8,7 @@
 #' @return A list of regions and sub-processing units.
 #' @author David Blodgett \email{dblodgett@@usgs.gov}
 #' @importFrom maptools readShapePoly
+#' @importFrom sp CRS
 #' @export
 #' @examples
 #' \dontrun{
