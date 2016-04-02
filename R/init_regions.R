@@ -1,6 +1,7 @@
 #' Initialize HUC Region Files
 #' 
-#' Builds Regional WBD Files
+#' Builds regional WBD files from a national shapefile. The shapefile can be found here:
+#' ftp://rockyftp.cr.usgs.gov/vdelivery/Datasets/Staged/WBD/
 #' 
 #' @param WBDPath The path to the WBD shapefile
 #' @param regionsPath The path where the regional subset rda files should go
