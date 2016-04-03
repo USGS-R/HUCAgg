@@ -10,6 +10,7 @@
 #' @importFrom maptools unionSpatialPolygons
 #' @export
 #' @examples
+#' \dontrun{
 #' load(system.file("extdata","testhucpoly.rda",package="HUCAgg"))
 #' plot(testhucPoly)
 #' hucList<-testhucPoly@data$HUC12
@@ -18,6 +19,7 @@
 #' huc<-"070900020904"
 #' outhucPoly<-unionHUC(huc, aggrHUCs, testhucPoly)
 #' plot(outhucPoly, add=TRUE, col=rgb(1,0,0,.3))
+#' }
 #' 
 unionHUC<-function(huc,upstreamHUCs,hucPoly) {
   # takes a huc as a string, the lookup table for upstream HUCs, and the upstream polygons.
@@ -32,13 +34,3 @@ unionHUC<-function(huc,upstreamHUCs,hucPoly) {
   aggPoly<-unionSpatialPolygons(hucPolySub,hucPolySub@data$group)
   return(aggPoly)
 }
-
-load(system.file("extdata","testhucpoly.rda",package="HUCAgg"))
-plot(testhucPoly)
-hucList<-as.character(unlist(getHUCList("07",testhucPoly)))
-fromHUC<-sapply(hucList,fromHUC_finder,hucs=testhucPoly@data$HUC12,tohucs=testhucPoly@data$TOHUC)
-aggrHUCs<-sapply(hucList, HUC_aggregator, fromHUC=fromHUC)
-huc<-"070900020904"
-outhucPoly<-unionHUC(huc, aggrHUCs, testhucPoly)
-plot(outhucPoly, add=TRUE, col=rgb(1,0,0,.3))
- 

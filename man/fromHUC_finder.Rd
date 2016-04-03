@@ -20,6 +20,7 @@ The list of fromHUCs
 This function finds the hucs that flow into a given huc.
 }
 \examples{
+\dontrun{
 load(system.file("extdata","testhucpoly.rda",package="HUCAgg"))
 print(testhucPoly@data$HUC12[which(testhucPoly@data$TOHUC \%in\% "070900020504")])
 print(testhucPoly@data$HUC12[which(testhucPoly@data$TOHUC \%in\% "070900020604")])
@@ -27,6 +28,7 @@ hucList<-testhucPoly@data$HUC12
 fromHUC<-sapply(hucList,fromHUC_finder,hucs=testhucPoly@data$HUC12,tohucs=testhucPoly@data$TOHUC)
 print(unlist(fromHUC["070900020504"][[1]]))
 print(unlist(fromHUC["070900020604"][[1]]))
+}
 
 }
 \author{

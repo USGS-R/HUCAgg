@@ -20,6 +20,7 @@ An aggregated polygon
 Aggregates geometry for a set of HUCs.
 }
 \examples{
+\dontrun{
 load(system.file("extdata","testhucpoly.rda",package="HUCAgg"))
 plot(testhucPoly)
 hucList<-testhucPoly@data$HUC12
@@ -28,6 +29,7 @@ aggrHUCs<-sapply(hucList, HUC_aggregator, fromHUC=fromHUC)
 huc<-"070900020904"
 outhucPoly<-unionHUC(huc, aggrHUCs, testhucPoly)
 plot(outhucPoly, add=TRUE, col=rgb(1,0,0,.3))
+}
 
 }
 \author{

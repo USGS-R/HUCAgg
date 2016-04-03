@@ -10,6 +10,7 @@
 #' @importFrom rgeos gSimplify
 #' @export
 #' @examples
+#' \dontrun{
 #' load(system.file("extdata","testhucpoly.rda",package="HUCAgg"))
 #' hucList<-testhucPoly@data$HUC12
 #' fromHUC<-sapply(hucList,fromHUC_finder,hucs=testhucPoly@data$HUC12,tohucs=testhucPoly@data$TOHUC)
@@ -18,6 +19,7 @@
 #' plot(subset(testhucPoly,testhucPoly@data$HUC12 %in% "070900020504"))
 #' testhucPoly<-simplifyHucs(testhucPoly,coordThresh=0,simpTol = 1e-2)
 #' plot(subset(testhucPoly,testhucPoly@data$HUC12 %in% "070900020504"), add=TRUE)
+#' }
 #' 
 simplifyHucs<-function(subhucPoly,coordThresh=50000,simpTol=0.00005) {
   for (p in 1:length(subhucPoly@polygons)) {

@@ -11,6 +11,7 @@
 #' @importFrom maptools unionSpatialPolygons
 #' @export
 #' @examples
+#' \dontrun{
 #' load(system.file("extdata","testhucpoly.rda",package="HUCAgg"))
 #' plot(testhucPoly)
 #' hucList<-testhucPoly@data$HUC12
@@ -19,7 +20,7 @@
 #' testhucPoly<-unionHUCSet(aggrHUCs, fromHUC, testhucPoly)
 #' plot(subset(testhucPoly,testhucPoly@data$HUC12 %in% "070900020904"), add=TRUE, col=rgb(1,0,0,.3))
 #' plot(subset(testhucPoly,testhucPoly@data$HUC12 %in% "070900020702"), add=TRUE, col=rgb(1,1,0,.3))
-#' 
+#' }
 unionHUCSet<-function(aggrHUCs,fromHUCs,subhucPoly) {
   upstream_size<-sapply(aggrHUCs, length)
   for ( setSize in 1:max(upstream_size)) {

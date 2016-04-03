@@ -21,6 +21,7 @@ Note that Polygon 'ID's are set to the HUC id and areas are added up appropriate
 Aggregates geometry for a large collection of HUCs. Note that subhucPoly must be all potential HUCs required.
 }
 \examples{
+\dontrun{
 load(system.file("extdata","testhucpoly.rda",package="HUCAgg"))
 plot(testhucPoly)
 hucList<-testhucPoly@data$HUC12
@@ -29,7 +30,7 @@ aggrHUCs<-sapply(hucList, HUC_aggregator, fromHUC=fromHUC)
 testhucPoly<-unionHUCSet(aggrHUCs, fromHUC, testhucPoly)
 plot(subset(testhucPoly,testhucPoly@data$HUC12 \%in\% "070900020904"), add=TRUE, col=rgb(1,0,0,.3))
 plot(subset(testhucPoly,testhucPoly@data$HUC12 \%in\% "070900020702"), add=TRUE, col=rgb(1,1,0,.3))
-
+}
 }
 \author{
 David Blodgett \email{dblodgett@usgs.gov}

@@ -18,10 +18,13 @@ A list of hucs found.
 A convenience function to retreive lists of HUCs according to a regex.
 }
 \examples{
+\dontrun{
 load(system.file("extdata","testhucpoly.rda",package="HUCAgg"))
 print(testhucPoly@data$HUC12)
 hucList<-as.character(unlist(getHUCList("0709000205",testhucPoly)))
 print(hucList)
+}
+
 }
 \author{
 David Blodgett \email{dblodgett@usgs.gov}

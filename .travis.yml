@@ -1,37 +1,25 @@
-# Sample .travis.yml for R projects.
-#
-# See README.md for instructions, or for more configuration options,
-# see the wiki:
-#   https://github.com/craigcitro/r-travis/wiki
-
-sudo: true
-
 language: c
+
+os: osx
 
 env:
    global:
-     - CRAN: http://cran.rstudio.com
+     - CRAN: "http://cran.rstudio.com"
      - R_BUILD_ARGS="--no-build-vignettes --no-manual"
-     - R_CHECK_ARGS="--no-build-vignettes --no-manual --as-cran"
-     - _R_CHECK_FORCE_SUGGESTS_=FALSE
+     - R_CHECK_ARGS="--no-build-vignettes --no-manual --no-examples"
      - BOOTSTRAP_LATEX=""
      - NOT_CRAN="true"
 
-before_script:
-  - sudo apt-get update
-  - sudo apt-get -y install libproj-dev libgdal1-dev
+script: ./travis-tool.sh run_tests
+
+before_install:
   - curl -OL http://raw.github.com/craigcitro/r-travis/master/scripts/travis-tool.sh
   - chmod 755 ./travis-tool.sh
   - ./travis-tool.sh bootstrap
-  - ./travis-tool.sh install_r devtools testthat
   - ./travis-tool.sh install_deps
-  
-r_github_packages:
- - jimhester/covr
-script: ./travis-tool.sh run_tests
 
-after_success:
-  - Rscript -e 'covr::coveralls()'
+after_failure:
+  ./travis-tool.sh dump_logs
 
 notifications:
   email:

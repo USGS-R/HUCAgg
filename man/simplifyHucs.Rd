@@ -20,6 +20,7 @@ The subhucPoly data frame with large polygons simplified.
 A convenience function to help simplify very large aggregate HUCs.
 }
 \examples{
+\dontrun{
 load(system.file("extdata","testhucpoly.rda",package="HUCAgg"))
 hucList<-testhucPoly@data$HUC12
 fromHUC<-sapply(hucList,fromHUC_finder,hucs=testhucPoly@data$HUC12,tohucs=testhucPoly@data$TOHUC)
@@ -28,6 +29,7 @@ testhucPoly<-unionHUCSet(aggrHUC, fromHUC, testhucPoly)
 plot(subset(testhucPoly,testhucPoly@data$HUC12 \%in\% "070900020504"))
 testhucPoly<-simplifyHucs(testhucPoly,coordThresh=0,simpTol = 1e-2)
 plot(subset(testhucPoly,testhucPoly@data$HUC12 \%in\% "070900020504"), add=TRUE)
+}
 
 }
 \author{

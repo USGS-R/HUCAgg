@@ -18,6 +18,7 @@ The list of all fromHUCs upstream of given huc
 Aggregates fromHUCs recursively.
 }
 \examples{
+\dontrun{
 load(system.file("extdata","testhucpoly.rda",package="HUCAgg"))
 hucList<-testhucPoly@data$HUC12
 fromHUC<-sapply(hucList,fromHUC_finder,
@@ -29,6 +30,7 @@ print(c(unlist(fromHUC["070900020504"][[1]]),
         unlist(fromHUC["070900020603"][[1]])))
 aggrHUCs<-sapply(hucList, HUC_aggregator, fromHUC=fromHUC)
 print(unlist(aggrHUCs["070900020604"][[1]]))
+}
 
 }
 \author{
