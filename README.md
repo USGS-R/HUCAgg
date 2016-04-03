@@ -1,5 +1,7 @@
 Functions to aggregate WBD HUC12s
 =================================
+![Travis](https://travis-ci.org/dblodgett-usgs/HUCAgg.svg?branch=master)
+
 
 Go here for data needed for this package: ftp://ftpext.usgs.gov/pub/er/wi/middleton/dblodgett/HUCAgg/
 
