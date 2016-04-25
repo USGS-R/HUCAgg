@@ -14,7 +14,7 @@ unionHUCSet(aggrHUCs, fromHUCs, subhucPoly)
 \item{subhucPoly}{A subset of HUCs for the region in questioned.}
 }
 \value{
-The subhucPoly data frame with requested aggregated HUCs unioned together. 
+\code{data.frame} The subhucPoly data frame with requested aggregated HUCs unioned together. 
 Note that Polygon 'ID's are set to the HUC id and areas are added up appropriately.
 }
 \description{

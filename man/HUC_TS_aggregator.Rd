@@ -11,14 +11,14 @@ HUC_TS_aggregator(upstream_size, fromHUC, huc12_areaDF, huc12agg_areaDF, dataF)
 
 \item{fromHUC}{Named list of lists containing the HUCs that flow into each HUC.}
 
-\item{huc12_areaDF}{Data frame with a single observation of area for each local HUC.}
+\item{huc12_areaDF}{\code{data.frame} with a single observation of area for each local HUC.}
 
-\item{huc12agg_areaDF}{Data fame with a single observation of area for each aggregated HUC.}
+\item{huc12agg_areaDF}{\code{data.frame} with a single observation of area for each aggregated HUC.}
 
-\item{dataF}{Data Frame with a set of observations for each local HUC.}
+\item{dataF}{\code{data.frame} with a set of observations for each local HUC.}
 }
 \value{
-dataF Data Frame with the set of observations aggregated upstream using a weighted average.
+dataF \code{data.frame} with the set of observations aggregated upstream using a weighted average.
 }
 \description{
 Aggregate time series data for a collection of HUCs

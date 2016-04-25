@@ -5,7 +5,7 @@
 #' @param aggrHUCs The list of aggregate HUCs to be processed per HUC_aggregator
 #' @param fromHUCs The list of 'fromHUCs' to be processed per fromHUC_finder
 #' @param subhucPoly A subset of HUCs for the region in questioned.
-#' @return The subhucPoly data frame with requested aggregated HUCs unioned together. 
+#' @return \code{data.frame} The subhucPoly data frame with requested aggregated HUCs unioned together. 
 #' Note that Polygon 'ID's are set to the HUC id and areas are added up appropriately. 
 #' @author David Blodgett \email{dblodgett@@usgs.gov}
 #' @importFrom maptools unionSpatialPolygons

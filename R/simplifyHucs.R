@@ -5,7 +5,7 @@
 #' @param subhucPoly A subset of HUCs for the region in questioned.
 #' @param coordThresh A threshold number of nodes above which polygons will be simplified.
 #' @param simpTol A tolerance to pass into the Douglas-Peuker algorith.
-#' @return The subhucPoly data frame with large polygons simplified.
+#' @return \code{data.frame} The subhucPoly data frame with large polygons simplified.
 #' @author David Blodgett \email{dblodgett@@usgs.gov}
 #' @importFrom rgeos gSimplify
 #' @export

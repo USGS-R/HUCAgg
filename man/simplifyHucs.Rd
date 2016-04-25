@@ -14,7 +14,7 @@ simplifyHucs(subhucPoly, coordThresh = 50000, simpTol = 5e-05)
 \item{simpTol}{A tolerance to pass into the Douglas-Peuker algorith.}
 }
 \value{
-The subhucPoly data frame with large polygons simplified.
+\code{data.frame} The subhucPoly data frame with large polygons simplified.
 }
 \description{
 A convenience function to help simplify very large aggregate HUCs.

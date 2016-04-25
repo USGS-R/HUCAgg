@@ -4,10 +4,10 @@
 #' 
 #' @param upstream_size Named integer list of the number of upstream HUCs for each huc.
 #' @param fromHUC Named list of lists containing the HUCs that flow into each HUC.
-#' @param huc12_areaDF Data frame with a single observation of area for each local HUC.
-#' @param huc12agg_areaDF Data fame with a single observation of area for each aggregated HUC.
-#' @param dataF Data Frame with a set of observations for each local HUC.
-#' @return dataF Data Frame with the set of observations aggregated upstream using a weighted average.
+#' @param huc12_areaDF \code{data.frame} with a single observation of area for each local HUC.
+#' @param huc12agg_areaDF \code{data.frame} with a single observation of area for each aggregated HUC.
+#' @param dataF \code{data.frame} with a set of observations for each local HUC.
+#' @return dataF \code{data.frame} with the set of observations aggregated upstream using a weighted average.
 #' @author David Blodgett \email{dblodgett@@usgs.gov}
 #' @export
 #' @examples
