@@ -34,4 +34,5 @@ HUC_aggregator<-function(huc,fromHUC){
   else { # Otherwise, add current list to aggHUCs and call HUC_aggregator for list of upstream HUCs.
     aggHUCs<-c(fromHUCs,(unlist(lapply(fromHUCs,HUC_aggregator,fromHUC=fromHUC))))
   }
+  return(aggHUCs)
 }
