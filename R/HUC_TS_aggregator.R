@@ -12,10 +12,10 @@
 #' @export
 #' @examples
 #' \dontrun{
-#' load(system.file("extdata","HUCTS_aggregator_test.rda",package="HUCAgg"))
-#' outData<-HUCTS_aggregator(upstream_size,fromHUC,huc12_areaDF,huc12agg_areaDF,dataF)
+#' load(system.file("extdata","HUC_TS_aggregator_test.rda",package="HUCAgg"))
+#' outData<-HUC_TS_aggregator(upstream_size,fromHUC,huc12_areaDF,huc12agg_areaDF,dataF)
 #' }
-HUCTS_aggregator<-function(upstream_size,fromHUC,huc12_areaDF,huc12agg_areaDF,dataF) {
+HUC_TS_aggregator<-function(upstream_size,fromHUC,huc12_areaDF,huc12agg_areaDF,dataF) {
     for ( setSize in 1:max(upstream_size) ) {
       hucs<-names(upstream_size[which(upstream_size==setSize)])
       if ( length(hucs) > 100 ) {
