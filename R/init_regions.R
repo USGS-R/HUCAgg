@@ -27,7 +27,8 @@ init_regions<-function(WBDPath,regionsPath) {
   if(!dir.exists(regionsPath)) {
     print('Reading HUC shapefile, this may take a while.')
     hucPoly<-readShapePoly(WBDPath,proj4string= CRS('+init=epsg:4269'))
-    i <- sapply(hucPoly@data, is.factor); hucPoly@data[i] <- lapply(hucPoly@data[i], as.character)
+    i <- sapply(hucPoly@data, is.factor)
+    hucPoly@data[i] <- lapply(hucPoly@data[i], as.character)
     dir.create(regionsPath)
     for(region in names(regions)) {
       print(regions[region])
