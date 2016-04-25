@@ -30,10 +30,10 @@ HUC_TS_aggregator<-function(upstream_size,fromHUC,huc12_areaDF,huc12agg_areaDF,d
           # Set wa to the local times its area initially.
           wa<-dataF[huc][[1]]*huc12_areaDF[huc][[1]]
           for(h in unlist(fromHUCs[[1]])) {
-            try({
+            try({ # Using try here to handle rare case of missing data. 
               # Loop over the fromHUCs adding them to wa with their area.
               wa<-wa+dataF[h][[1]]*huc12agg_areaDF[h][[1]]
-              area<-area+huc12agg_areaDF[h][[1]]}, silent = TRUE
+              area<-area+huc12agg_areaDF[h][[1]]}, silent = FALSE
             )
           }
           wa<-wa/area
