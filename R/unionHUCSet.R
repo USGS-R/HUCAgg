@@ -27,12 +27,11 @@ unionHUCSet<-function(aggrHUCs,fromHUCs,subhucPoly) {
     hucs<-names(upstream_size[which(upstream_size==setSize)])
     for ( huc in hucs ) {
       fromHUC_local<-c(unlist(fromHUCs[huc][[1]]))
-      if(length(fromHUC_local)>50) {warning(paste(huc,'has',length(fromHUC_local),'contributing hucs, this will take a very long time.'))}
       for (ihuc in 1:length(fromHUC_local)) { # I found that it is much faster to combine two iteratively rather than a ton in one block.
         hucListSub<-c(unlist(fromHUC_local[ihuc][[1]]),huc)
         subhucPolySub<-subset(subhucPoly,subhucPoly@data$HUC12 %in% hucListSub)
         subhucPolySub@data$group<-1
-        ind<-which(subhucPoly@data$HUC12 %in% huc)
+        ind<-which(subhucPoly@data$HUC12 %in% huc)[1]
         tryCatch(
           subhucPoly@polygons[ind][[1]]<-unionSpatialPolygons(subhucPolySub,subhucPolySub@data$group)@polygons[[1]],
           warning = function(w) {print(paste("Warning handling", huc, "warning was", w))},

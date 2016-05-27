@@ -28,6 +28,10 @@ HUC_aggregator<-function(huc,fromHUC){
     print(paste('found circular reference in',huc))
     return(huc)
   }
+  if(Cstack_info()['eval_depth']>4000) {
+    print(paste('approaching stack overflow in',huc))
+    return(huc)
+  }
   if(length(fromHUCs)==0) { # If no fromHUCs for given HUC, return aggHUCs.
     return(fromHUCs)
   }
