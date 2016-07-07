@@ -29,18 +29,22 @@ init_regions<-function(WBDPath,regionsPath) {
     hucPoly<-readShapePoly(WBDPath,proj4string= CRS('+init=epsg:4269'))
     i <- sapply(hucPoly@data, is.factor)
     hucPoly@data[i] <- lapply(hucPoly@data[i], as.character)
+    try(colnames(hucPoly@data)[colnames(hucPoly@data)=="HUC_12"] <- "HUC12", silent = TRUE)
+    try(colnames(hucPoly@data)[colnames(hucPoly@data)=="HU_12_DS"] <- "TOHUC", silent = TRUE)
+    try(colnames(hucPoly@data)[colnames(hucPoly@data)=="ACRES"] <- "AREAACRES", silent = TRUE)
+    try(colnames(hucPoly@data)[colnames(hucPoly@data)=="AreaHUC12"] <- "AREASQKM", silent = TRUE)
     dir.create(regionsPath)
     for(region in names(regions)) {
       print(regions[region])
       subhucList<-c()
       for(huc02 in regions[region][[1]]) { 
-        for(huc in hucPoly@data$HUC) {
+        for(huc in hucPoly@data$HUC12) {
           if(grepl(paste0('^',huc02,'.*'),huc)) { 
             subhucList<-c(subhucList,huc) 
           }
         } 
       }
-      subhucPoly<-subset(hucPoly,hucPoly@data$HUC %in% as.character(subhucList))
+      subhucPoly<-subset(hucPoly,hucPoly@data$HUC12 %in% as.character(subhucList))
       save(subhucPoly, file=file.path('regions',paste0(region,'.rda')))
     }
   }
