@@ -35,4 +35,3 @@ plot(outhucPoly, add=TRUE, col=rgb(1,0,0,.3))
 \author{
 David Blodgett \email{dblodgett@usgs.gov}
 }
-

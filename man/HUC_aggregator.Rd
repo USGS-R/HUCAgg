@@ -36,4 +36,3 @@ print(unlist(aggrHUCs["070900020604"][[1]]))
 \author{
 David Blodgett \email{dblodgett@usgs.gov}
 }
-

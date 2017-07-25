@@ -28,4 +28,3 @@ regions<-init_regions(WBDPath, regionsPath)
 \author{
 David Blodgett \email{dblodgett@usgs.gov}
 }
-

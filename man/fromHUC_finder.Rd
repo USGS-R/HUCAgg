@@ -11,7 +11,7 @@ fromHUC_finder(huc, hucs, tohucs)
 
 \item{hucs}{The list of all HUCs}
 
-\item{tohucs}{The list of TUHUCs}
+\item{tohucs}{The list of TOHUCs}
 }
 \value{
 The list of fromHUCs
@@ -34,4 +34,3 @@ print(unlist(fromHUC["070900020604"][[1]]))
 \author{
 David Blodgett \email{dblodgett@usgs.gov}
 }
-

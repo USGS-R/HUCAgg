@@ -35,4 +35,3 @@ plot(subset(testhucPoly,testhucPoly@data$HUC12 \%in\% "070900020702"), add=TRUE,
 \author{
 David Blodgett \email{dblodgett@usgs.gov}
 }
-

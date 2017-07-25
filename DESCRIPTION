@@ -14,4 +14,4 @@ Suggests:
 Description: This package is used to aggregate HUC12 geospatial and time series data to total upstream watersheds.
 License: CC0
 LazyLoad: yes
-RoxygenNote: 5.0.1
+RoxygenNote: 6.0.1
