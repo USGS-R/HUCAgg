@@ -1,13 +1,12 @@
 #' Initialize HUC Region Files
 #' 
-#' Builds regional WBD files from a national shapefile. The shapefile can be found here:
-#' ftp://rockyftp.cr.usgs.gov/vdelivery/Datasets/Staged/WBD/
+#' Builds regional WBD files from a national shapefile or geodatabase. This page contains download information. https://nhd.usgs.gov/data.html 
 #' 
 #' @param WBDPath The path to the WBD shapefile
 #' @param regionsPath The path where the regional subset rda files should go
 #' @return A list of regions and sub-processing units.
 #' @author David Blodgett \email{dblodgett@@usgs.gov}
-#' @importFrom maptools readShapePoly
+#' @importFrom rgdal readOGR
 #' @importFrom sp CRS
 #' @export
 #' @examples
@@ -26,7 +25,9 @@ init_regions<-function(WBDPath,regionsPath) {
                 california=c('18'))
   if(!dir.exists(regionsPath)) {
     print('Reading HUC shapefile, this may take a while.')
-    hucPoly<-readShapePoly(WBDPath,proj4string= CRS('+init=epsg:4269'))
+    hucPoly <- tryCatch({readOGR(WBDPath, p4s='+init=epsg:4269')},
+                error = function(e) {print(paste("Error trying to read as a shapefile trying as a geodatabase"))
+                readOGR(WBDPath, layer = "WBDHU12")})
     i <- sapply(hucPoly@data, is.factor)
     hucPoly@data[i] <- lapply(hucPoly@data[i], as.character)
     try(colnames(hucPoly@data)[colnames(hucPoly@data)=="HUC_12"] <- "HUC12", silent = TRUE)
