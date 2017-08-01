@@ -1,0 +1,91 @@
+---
+title: "HUCAgg"
+author: "David Blodgett"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+```{r opts, echo=F, eval=T}
+knitr::opts_chunk$set(fig.width=6, fig.height=5, fig.align = "center") 
+```
+
+The HUCAgg package can be used to aggregate collections of local incremental 12-digit hydrologic unit code watersheds into total aggregate upstream watersheds. The package works with Watershed Boundary Dataset data available from the USGS at the [National Hydrography Dataset Downloads page.](https://nhd.usgs.gov/data.html)
+
+The examples below use a geodatabase for hydrologic region 06 in the South East US. The [`rgdal`](https://cran.r-project.org/web/packages/rgdal/index.html) package is first used to load the data.
+
+This vignette covers the core functions of this package:
+- fromHUC_finder - Inverts the ToHUC attribute into a list of "fromHUCs"
+- HUC_aggregator - Finds all the HUCs upstream of a given HUC
+- unionHUC - Returns the boundary for a collection of HUCs.
+
+Functions covered elsewhere are primarily for processing the WBD through these functions at scale for the entire country.
+- init_regions - splits the WBD apart into regional components.
+- unionHUCSet - is an optimized version of unionHUC large sets of HUCs
+- simplifyHucs - simplifies the geometry of very large HUC polygons.
+
+The last function in the package, `HUC_TS_aggregator` can aggregate time series for a collection of incremental HUCs into area-weighted time series for a total upstream watershed.
+
+All these functions have been used in preparing data for the [National Water Census Data Resources Portal.](https://cida.usgs.gov/nwc/)
+
+```{r loadData, warning=F, message=F, echo=T, eval=T}
+library(rgdal)
+ogrListLayers("WBD_06_GDB/WBD_06_GDB.gdb/")
+WBD06 <- readOGR("WBD_06_GDB/WBD_06_GDB.gdb/", layer = "WBDHU12", stringsAsFactors = F)
+```
+With the data loaded, we first invert the "toHUC" attribute into a list of "fromHUCs". [We'll use a HUC in Knoxeville, TN](https://cida.usgs.gov/nwc/#!waterbudget/achuc/060102010204). 
+```{r fromhuc1, warning=F, echo=T, message=F, eval=T}
+library(HUCAgg)
+fromHUCs <- fromHUC_finder(huc = "060102010204", 
+                           hucs = WBD06@data$HUC12, 
+                           tohucs = WBD06@data$ToHUC)
+fromHUCs
+```
+fromHUCs is just the HUCs immediately upstream of the one we passed in. What we actually want is the fromHUCs for every HUC we might be interested in. So we can call `fromHUC_finder` with `sapply` for all the HUCs in the dataset.
+
+```{r fromhuc2, warning=F, echo=T, eval=T}
+fromHUCs<-sapply(WBD06@data$HUC12,
+                fromHUC_finder,
+                hucs=WBD06@data$HUC12,
+                tohucs=WBD06@data$ToHUC)
+number_of_fromHUCs <- as.numeric(lapply(fromHUCs, function(x) length(x)))
+hist(number_of_fromHUCs)
+```
+
+As we can see here, the majority of the HUCs have none upstream, and at most there are 8 HUCs upstream of one HUC. 
+
+The next function, `HUC_aggegator` is the core of the package. It implements a recursive algorithm to find the list of upstream HUCs for a HUC we provide. So looking at our example first we can get all the HUCs upstream of "060102010204".
+```{r aggrhuc1, warning=F, echo=T, eval=T}
+upstream_hucs <- HUC_aggregator("060102010204", fromHUCs)
+length(upstream_hucs)
+```
+So the HUC we are interested in has 263 local incremental HUCs in its drainage area.
+
+Next we can use `sapply` call `HUC_aggregator` for all the HUCs in the dataset.
+
+```{r aggrhuc2, warning=F, echo=T, eval=T}
+aggregate_HUCs<-sapply(WBD06@data$HUC12, HUC_aggregator, fromHUC=fromHUCs)
+length(aggregate_HUCs["060102010204"][[1]])
+number_of_upstream_hucs <- as.data.frame(as.numeric(lapply(aggregate_HUCs, function(x) length(x))))
+library(ggplot2)
+ggplot(number_of_upstream_hucs, aes(x = number_of_upstream_hucs)) + geom_histogram(binwidth = .2) + scale_x_log10()
+```
+Now we have a named list of lists that each contain all the HUCs upstream of a given HUC. The historgram above shows the distribution of number of upstream HUCs on a log scale so you can see how things vary.
+
+The next function to highlight is `unionHUC` which will return the union of a collection of HUCs. Before we use it, let's extract some HUCs and plot them to get a feel for what we are working with.
+```{r unionHUC, warning=F, echo=T, eval=T}
+upstream_huc_polygons <- WBD06[which(WBD06$HUC12 %in% upstream_hucs), ]
+plot(upstream_huc_polygons)
+```
+Now we can union these all together and plot the result as an overylay.
+```{r unionHUC2, warning=F, echo=T, eval=T}
+unioned_HUC <- unionHUC("060102010204", 
+                        upstreamHUCs = aggregate_HUCs,
+                        hucPoly = WBD06)
+plot(upstream_huc_polygons)
+plot(unioned_HUC, add=TRUE, col=rgb(1,0,0,.3))
+```
+
+As expected, we get the polygon that combines all the inputs together.

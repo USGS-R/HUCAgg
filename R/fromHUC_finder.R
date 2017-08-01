@@ -4,7 +4,7 @@
 #' 
 #' @param huc The huc in question
 #' @param hucs The list of all HUCs
-#' @param tohucs The list of TUHUCs
+#' @param tohucs The list of TOHUCs
 #' @return The list of fromHUCs
 #' @author David Blodgett \email{dblodgett@@usgs.gov}
 #' @export

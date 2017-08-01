@@ -32,4 +32,3 @@ outData<-HUC_TS_aggregator(upstream_size,fromHUC,huc12_areaDF,huc12agg_areaDF,da
 \author{
 David Blodgett \email{dblodgett@usgs.gov}
 }
-

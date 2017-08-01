@@ -5,11 +5,18 @@ Functions to aggregate WBD HUC12s
 [![Travis](https://travis-ci.org/USGS-R/HUCAgg.svg?branch=master)](https://travis-ci.org/USGS-R/HUCAgg)
 
 
-Go here for data needed for this package: ftp://ftpext.usgs.gov/pub/er/wi/middleton/dblodgett/HUCAgg/
+This package works with Watershed Boundary Dataset data available from the USGS at the [National Hydrography Dataset Downloads page.](https://nhd.usgs.gov/data.html)
 
-Everything can be done with the WBDHU12_30June2015.zip shapefile. It was generated from the Watershed Boundary Dataset Geo Data Base that is also included at the ftpint site above. ogr2ogr was used to make that conversion.
+See the Vignette for how to work with the WBD data.
 
 See function examples for usage.
+
+## Package Status
+
+[![status](https://img.shields.io/badge/USGS-Support-yellow.svg)](https://owi.usgs.gov/R/packages.html#support)
+
+This package is considered a 'support' package. For more information, see:
+[https://owi.usgs.gov/R/packages.html#support](https://owi.usgs.gov/R/packages.html#support)
 
 ## Disclaimers:
 ### Provisional:

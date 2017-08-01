@@ -1,5 +1,5 @@
 language: c
-
+dist: trusty
 sudo: required
 
 os: 
@@ -15,6 +15,14 @@ env:
      - NOT_CRAN="true"
 
 script: ./travis-tool.sh run_tests
+
+addons:
+  apt:
+    packages:
+    - gdal-bin 
+    - libgdal-dev
+    - libgdal1-dev
+    - libproj-dev
 
 before_install:
   - curl -OL http://raw.github.com/craigcitro/r-travis/master/scripts/travis-tool.sh

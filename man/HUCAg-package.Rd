@@ -21,4 +21,3 @@ LazyLoad: \tab yes\cr
 This package is used to aggregate HUC12 geospatial and time series 
 data to total upstream watersheds.
 }
-
