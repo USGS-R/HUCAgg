@@ -11,6 +11,13 @@ See the Vignette for how to work with the WBD data.
 
 See function examples for usage.
 
+## Package Status
+
+[![status](https://img.shields.io/badge/USGS-Support-yellow.svg)](https://owi.usgs.gov/R/packages.html#support)
+
+This package is considered a 'support' package. For more information, see:
+[https://owi.usgs.gov/R/packages.html#support](https://owi.usgs.gov/R/packages.html#support)
+
 ## Disclaimers:
 ### Provisional:
 This information is preliminary or provisional and is subject to revision. It is being provided to meet the need for timely best science. The information has not received final approval by the U.S. Geological Survey (USGS) and is provided on the condition that neither the USGS nor the U.S. Government shall be held liable for any damages resulting from the authorized or unauthorized use of the information. 
