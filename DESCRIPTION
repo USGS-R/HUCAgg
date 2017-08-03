@@ -1,15 +1,18 @@
 Package: HUCAgg
 Type: Package
 Title: Functions to aggregate WBD HUC12s
-Version: 0.0
+Version: 1.0
 Date: 2015-10-06
 Author: David Blodgett
 Maintainer: David Blodgett <dblodgett@usgs.gov>
 Imports:
   sp, rgeos, rgdal, maptools
 Suggests:
-    testthat
+    testthat, knitr
 Description: This package is used to aggregate HUC12 geospatial and time series data to total upstream watersheds.
 License: CC0
 LazyLoad: yes
+VignetteBuilder: knitr
+BugReports: https://github.com/USGS-R/HUCAgg/issues
+URL: https://github.com/USGS-R/HUCAgg
 RoxygenNote: 6.0.1
