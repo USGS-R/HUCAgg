@@ -20,3 +20,6 @@ vignettes/*.pdf
 
 .DS_Store
 .Rproj.user
+
+vignettes/WBD*
+vignettes/regions

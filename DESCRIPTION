@@ -8,7 +8,7 @@ Maintainer: David Blodgett <dblodgett@usgs.gov>
 Imports:
   sp, rgeos, rgdal, maptools
 Suggests:
-    testthat, knitr, ggplot
+    testthat, knitr, ggplot2
 Description: Aggregate HUC12 geospatial and time series data to total upstream watersheds.
 License: CC0
 LazyLoad: yes
