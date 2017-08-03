@@ -29,6 +29,12 @@ before_install:
   - chmod 755 ./travis-tool.sh
   - ./travis-tool.sh bootstrap
   - ./travis-tool.sh install_deps
+  
+r_github_packages:
+  - jimhester/covr
+  
+after_success:
+  - Rscript -e 'covr::coveralls()'
 
 after_failure:
   ./travis-tool.sh dump_logs

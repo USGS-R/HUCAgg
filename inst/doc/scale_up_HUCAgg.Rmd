@@ -1,0 +1,71 @@
+---
+title: "Scaling Up HUCAgg"
+author: "David Blodgett"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r opts, echo=F, eval=T}
+knitr::opts_chunk$set(fig.width=6, fig.height=5, fig.align = "center") 
+```
+
+In this vignette, we show how to use the `init_regions`, `unionHUCSet`, and `simplifyHucs` functions to process the entire WBD dataset as well as a convenience function called `getHUCList`.
+
+To keep processing size within the limits of typical computing resources, the function init_regions opens the WBD and breaks it down into processible components that are HUC02 or HUC04 subsets. This function takes a while to run but its worth the wait to allow later steps to work more efficiently. `init_regions` takes two inputs:  
+1) a path to the WBD shapefile or geodatabase and  
+2) a path rda files containing initialized regional subsets should be written to.  
+The rda files are compressed and should be about half the size of the native WBD geospatial data. If the regional rda files already exist, init_regions just returns the list of regions that are available.
+
+```{r, init_regions, echo=T, eval=T, error=F, message=F}
+library(HUCAgg)
+WBDPath<-"WBD.gdb"
+regionsPath<-"regions"
+
+regions<-init_regions(WBDPath, regionsPath)
+str(regions)
+```
+As you can see, some of the regions are broken up in to smaller sub components. This arrangement was found to complete successfully at scale through experimentation.  
+
+For this vignette, we'll just use one region, but each region can be run using the same approach in a loop or in parallel. First, we load a region and specify the sub-region that we want to process. We'll also plot a single local_incremental HUC to compare later.
+
+```{r colorado_1, echo=T, eval=T, error=F, message=F}
+region <- "colorado"
+load(file.path('regions',paste0(region,'.rda')))
+subhucPoly@data$UPHUCS<-""
+subRegion <- regions[region][[1]][1]
+local_incremental <- subhucPoly[which(subhucPoly$HUC12 == "140100011508"), ]
+plot(local_incremental)
+```
+
+Nest, we use the convenience function `getHUCList` to get the list of HUCs that are in the sub-region we want to process. This is less than are in the whole region and limits the number of HUCs that will be processed at a time.
+```{r colorado_2, echo=T, eval=T, error=F, message=F}
+hucList<-getHUCList(subRegion,subhucPoly)
+```
+
+Now we can run the two core HUCAgg functions `fromHUC_finder` and `HUC_aggregator`. In this case we call them in sapply for a long list of HUCs.
+```{r colorado_3, echo=T, eval=T, error=F, message=F}
+fromHUC<-sapply(as.character(unlist(hucList)), fromHUC_finder,
+                hucs=subhucPoly@data$HUC12,
+                tohucs=subhucPoly@data$TOHUC)
+aggrHUCs<-sapply(as.character(unlist(hucList)), HUC_aggregator, 
+                 fromHUC=fromHUC)
+```
+
+Now we call `unionHUCSet` and simplify the results. `unionHUCSet` generates the total upstream watershed boundary for every HUC in the set. It is optimized to start upstream and work downstream so it only ever joins together a few polygons. 
+```{r colorado_4, echo=T, eval=T, error=F, message=F}
+subhucPoly<-unionHUCSet(aggrHUCs, fromHUC, subhucPoly)
+subhucPoly<-simplifyHucs(subhucPoly, simpTol = 1e-04)
+```
+Now we have the `subhucPoly` SpatialPolygonsDataframe. It has the same dataframe variables as the original WBD. The area columns have been updated by summing the area of the HUCs that were combined. To save space, the geometry of these combined HUCs has been combined -- but this is not strictly required. 
+
+```{r colorado_5, echo=T, eval=T, error=F, message=F}
+total_upstream <- subhucPoly[which(subhucPoly$HUC12 == "140100011508"), ]
+plot(total_upstream)
+plot(local_incremental, add=TRUE, col=rgb(1,0,0,.3))
+```
+
+

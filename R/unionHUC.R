@@ -8,6 +8,7 @@
 #' @return An aggregated polygon
 #' @author David Blodgett \email{dblodgett@@usgs.gov}
 #' @importFrom maptools unionSpatialPolygons
+#' @importFrom sp SpatialPolygonsDataFrame
 #' @export
 #' @examples
 #' \dontrun{
@@ -19,18 +20,30 @@
 #' huc<-"070900020904"
 #' outhucPoly<-unionHUC(huc, aggrHUCs, testhucPoly)
 #' plot(outhucPoly, add=TRUE, col=rgb(1,0,0,.3))
+#' outhucPoly@data$AREAACRES
 #' }
 #' 
-unionHUC<-function(huc,upstreamHUCs,hucPoly) {
+unionHUC <- function(huc,upstreamHUCs,hucPoly) {
   # takes a huc as a string, the lookup table for upstream HUCs, and the upstream polygons.
-  hucListSub<-unlist(upstreamHUCs[huc])
+  hucListSub <- unlist(upstreamHUCs[huc])
+  
   if(is.null(hucListSub)) {
-    print(paste('top',huc))
+    print(paste('top', huc))
     return(NULL)
   }
-  hucListSub<-c(hucListSub,huc)
-  hucPolySub<-subset(hucPoly,hucPoly@data$HUC %in% hucListSub)
-  hucPolySub@data$group<-1
-  aggPoly<-unionSpatialPolygons(hucPolySub,hucPolySub@data$group)
+  
+  hucListSub <- c(hucListSub,huc)
+  
+  hucPolySub <- subset(hucPoly,hucPoly@data$HUC %in% hucListSub)
+  
+  ind<-which(hucPolySub@data$HUC12 %in% huc)[1]
+  
+  hucPolySub@data$group <- 1
+  aggPoly <- unionSpatialPolygons(hucPolySub,hucPolySub@data$group)
+  aggPoly <- SpatialPolygonsDataFrame(aggPoly, hucPolySub@data[ind,], match.ID = F)
+  
+  aggPoly@data$AREAACRES <- sum(hucPolySub@data$AREAACRES)
+  aggPoly@data$AREASQKM <- sum(hucPolySub@data$AREASQKM)
+  
   return(aggPoly)
 }
