@@ -29,6 +29,7 @@ aggrHUCs<-sapply(hucList, HUC_aggregator, fromHUC=fromHUC)
 huc<-"070900020904"
 outhucPoly<-unionHUC(huc, aggrHUCs, testhucPoly)
 plot(outhucPoly, add=TRUE, col=rgb(1,0,0,.3))
+outhucPoly@data$AREAACRES
 }
 
 }

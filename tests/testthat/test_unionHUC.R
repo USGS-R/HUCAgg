@@ -14,4 +14,7 @@ test_that("Returned unioned polygons are correct.", {
     }
   }
   expect_equal(numCoords,2400) # From Previous Visual Inspection Test
+  
+  expect_equal(outhucPoly@data$AREAACRES, 275170)
+  expect_equal(outhucPoly@data$AREASQKM, 1113.574466)
 })
