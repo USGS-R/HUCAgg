@@ -75,7 +75,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 
 <p>The HUCAgg package can be used to aggregate collections of local incremental 12-digit hydrologic unit code watersheds into total aggregate upstream watersheds. The package works with Watershed Boundary Dataset data available from the USGS at the <a href="https://nhd.usgs.gov/data.html">National Hydrography Dataset Downloads page.</a></p>
-<p>The examples below use a geodatabase for hydrologic region 06 in the South East US. The <a href="https://cran.r-project.org/web/packages/rgdal/index.html"><code>rgdal</code></a> package is first used to load the data.</p>
+<p>The examples below use a geodatabase for hydrologic region 06 in the South East US. The <a href="https://cran.r-project.org/package=rgdal"><code>rgdal</code></a> package is first used to load the data.</p>
 <p>This vignette covers the core functions of this package: - fromHUC_finder - Inverts the ToHUC attribute into a list of “fromHUCs” - HUC_aggregator - Finds all the HUCs upstream of a given HUC - unionHUC - Returns the boundary for a collection of HUCs.</p>
 <p>Functions covered elsewhere are primarily for processing the WBD through these functions at scale for the entire country. - init_regions - splits the WBD apart into regional components. - unionHUCSet - is an optimized version of unionHUC large sets of HUCs - simplifyHucs - simplifies the geometry of very large HUC polygons.</p>
 <p>The last function in the package, <code>HUC_TS_aggregator</code> can aggregate time series for a collection of incremental HUCs into area-weighted time series for a total upstream watershed.</p>

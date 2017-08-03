@@ -14,7 +14,7 @@ knitr::opts_chunk$set(fig.width=6, fig.height=5, fig.align = "center")
 
 The HUCAgg package can be used to aggregate collections of local incremental 12-digit hydrologic unit code watersheds into total aggregate upstream watersheds. The package works with Watershed Boundary Dataset data available from the USGS at the [National Hydrography Dataset Downloads page.](https://nhd.usgs.gov/data.html)
 
-The examples below use a geodatabase for hydrologic region 06 in the South East US. The [`rgdal`](https://cran.r-project.org/web/packages/rgdal/index.html) package is first used to load the data.
+The examples below use a geodatabase for hydrologic region 06 in the South East US. The [`rgdal`](https://cran.r-project.org/package=rgdal) package is first used to load the data.
 
 This vignette covers the core functions of this package:
 - fromHUC_finder - Inverts the ToHUC attribute into a list of "fromHUCs"
