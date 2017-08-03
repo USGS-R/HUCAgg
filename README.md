@@ -2,7 +2,8 @@
 # HUCAgg
 Functions to aggregate WBD HUC12s
 =================================
-[![Travis](https://travis-ci.org/USGS-R/HUCAgg.svg?branch=master)](https://travis-ci.org/USGS-R/HUCAgg)
+[![Travis](https://travis-ci.org/USGS-R/HUCAgg.svg?branch=master)](https://travis-ci.org/USGS-R/HUCAgg) 
+[![Coverage Status](https://coveralls.io/repos/github/USGS-R/HUCAgg/badge.svg?branch=master)](https://coveralls.io/github/USGS-R/HUCAgg?branch=master)
 
 This package works with Watershed Boundary Dataset data available from the USGS at the [National Hydrography Dataset Downloads page.](https://nhd.usgs.gov/data.html)
 
