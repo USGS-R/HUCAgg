@@ -24,16 +24,22 @@ init_regions<-function(WBDPath,regionsPath) {
                                    '1707','1709','1710','1711','1712','1708'),
                 california=c('18'))
   if(!dir.exists(regionsPath)) {
-    print('Reading HUC shapefile, this may take a while.')
-    hucPoly <- tryCatch({readOGR(WBDPath, p4s='+init=epsg:4269')},
-                error = function(e) {print(paste("Error trying to read as a shapefile trying as a geodatabase"))
-                readOGR(WBDPath, layer = "WBDHU12")})
+    print('Reading HUC data, this may take a while.')
+    
+    if(grepl(".shp", WBDPath)) {
+      hucPoly <- readOGR(WBDPath, p4s='+init=epsg:4269')
+    } else {
+      try(hucPoly <- readOGR(WBDPath, layer = "WBDHU12"), silent = T)
+      try(hucPoly <- readOGR(WBDPath, layer = "HUC12"), silent = T)
+    }
+    
     i <- sapply(hucPoly@data, is.factor)
     hucPoly@data[i] <- lapply(hucPoly@data[i], as.character)
     try(colnames(hucPoly@data)[colnames(hucPoly@data)=="HUC_12"] <- "HUC12", silent = TRUE)
     try(colnames(hucPoly@data)[colnames(hucPoly@data)=="HU_12_DS"] <- "TOHUC", silent = TRUE)
     try(colnames(hucPoly@data)[colnames(hucPoly@data)=="ACRES"] <- "AREAACRES", silent = TRUE)
     try(colnames(hucPoly@data)[colnames(hucPoly@data)=="AreaHUC12"] <- "AREASQKM", silent = TRUE)
+    try(colnames(hucPoly@data)[colnames(hucPoly@data)=="HU_12_NAME"] <- "NAME", silent = TRUE)
     dir.create(regionsPath)
     for(region in names(regions)) {
       print(regions[region])

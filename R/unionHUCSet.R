@@ -22,6 +22,7 @@
 #' plot(subset(testhucPoly,testhucPoly@data$HUC12 %in% "070900020702"), add=TRUE, col=rgb(1,1,0,.3))
 #' }
 unionHUCSet<-function(aggrHUCs,fromHUCs,subhucPoly) {
+  if(any(duplicated(subhucPoly$HUC12))) stop("Found duplicate HUC entries, can no proceed. See combine_multis() convenience function.")
   upstream_size<-sapply(aggrHUCs, length)
   for ( setSize in 1:max(upstream_size)) {
     hucs<-names(upstream_size[which(upstream_size==setSize)])

@@ -6,7 +6,7 @@ Date: 2017-08-03
 Author: David Blodgett
 Maintainer: David Blodgett <dblodgett@usgs.gov>
 Imports:
-  sp, rgeos, rgdal, maptools
+  sp, rgeos, rgdal, maptools, dplyr
 Suggests:
     testthat, knitr, ggplot2
 Description: Aggregate HUC12 geospatial and time series data to total upstream watersheds.

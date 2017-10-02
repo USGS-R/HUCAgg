@@ -12,7 +12,7 @@ getHUCList(subRegion, subhucPoly)
 \item{subhucPoly}{A subset of HUCs for the region in question.}
 }
 \value{
-A list of hucs found.
+A list of unique hucs found.
 }
 \description{
 A convenience function to retreive lists of HUCs according to a regex.
