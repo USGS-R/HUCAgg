@@ -16,3 +16,15 @@ test_that("Returned unioned polygons are correct.", {
   }
   expect_equal(numCoords,4234) # From Previous Visual Inspection Test
 })
+
+context("Test HUC combining functions")
+
+test_that("Returned hucs are as expected", {
+  subhucPoly <- readRDS("data/duplicate_subhucPoly.rds")
+  subhucPoly_dedup <- combine_multis(subhucPoly)  
+  expect_equal(nrow(subhucPoly_dedup), length(unique(subhucPoly@data$HUC12)))
+  expect_equal(sum(subhucPoly@data[which(subhucPoly@data$HUC12 == subhucPoly@data$HUC12[1]), ]$AREAACRES),
+               subhucPoly_dedup@data$AREAACRES[which(subhucPoly_dedup@data$HUC12 == subhucPoly@data$HUC12[1])])
+  expect_equal(sum(subhucPoly@data[which(subhucPoly@data$HUC12 == subhucPoly@data$HUC12[1]), ]$AREASQKM),
+               subhucPoly_dedup@data$AREASQKM[which(subhucPoly_dedup@data$HUC12 == subhucPoly@data$HUC12[1])])
+})

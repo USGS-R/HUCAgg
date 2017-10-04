@@ -68,8 +68,10 @@ getHUCList<-function(subRegion,subhucPoly) {
 combine_multis <- function(subhucPoly) {
   if(any(duplicated(subhucPoly@data$HUC12))) {
     
+    library(dplyr)
+    
     subhucPoly_combined <- dplyr::group_by(subhucPoly@data, HUC12) %>%
-      dplyr::summarise(AREASQKM_sum = sum(AREASQKM), AREASQKM_max = max(AREASQKM)) %>% 
+      dplyr::summarise(AREASQKM_sum = sum(AREASQKM), AREASQKM_max = max(AREASQKM), AREAACRES_sum = sum(AREAACRES)) %>% 
       dplyr::filter(AREASQKM_max != AREASQKM_sum) %>% 
       dplyr::select(-AREASQKM_max) %>% data.frame(stringsAsFactors = F)
     
@@ -80,10 +82,11 @@ combine_multis <- function(subhucPoly) {
       
       subhucPoly <- subhucPoly[which(subhucPoly@data$HUC12 != huc),]
       
-      single_huc <- rgeos::gUnaryUnion(subset_hucs, id = subset_hucs@polygons[[1]]@ID)
+      single_huc <- maptools::unionSpatialPolygons(subset_hucs, subset_hucs@data$HUC12)
       
       single_huc_df <- subset_hucs@data[1,]
       single_huc_df$AREASQKM <- subhucPoly_combined[huc,]$AREASQKM_sum
+      single_huc_df$AREAACRES <- subhucPoly_combined[huc,]$AREAACRES_sum
       
       single_huc <- SpatialPolygonsDataFrame(single_huc, single_huc_df, match.ID = F)
       
