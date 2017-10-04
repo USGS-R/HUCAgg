@@ -2,6 +2,7 @@
 
 export(HUC_TS_aggregator)
 export(HUC_aggregator)
+export(combine_multis)
 export(fromHUC_finder)
 export(getHUCList)
 export(init_regions)
